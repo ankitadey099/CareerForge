@@ -20,7 +20,11 @@ form.addEventListener("submit", async (event) => {
 
         const data = await response.json();
 
-        alert(data.message);
+        if (response.ok) {
+            window.location.href = "dashboard.html";
+        } else {
+            alert(data.message);
+        }
 
     } catch (error) {
         alert("Unable to connect to CareerForge server.");

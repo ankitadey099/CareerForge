@@ -1,14 +1,14 @@
-function sendMessage() {
+const input = document.getElementById("userInput");
+const chatBox = document.getElementById("chatBox");
 
-    const input = document.getElementById("userInput");
-    const chatBox = document.getElementById("chatBox");
-
+async function sendMessage() {
     const message = input.value.trim();
 
-    if (message === "") {
+    if (!message) {
         return;
     }
 
+    // Show user's message
     chatBox.innerHTML += `
         <div class="user-message">
             <strong>You:</strong>
@@ -16,48 +16,71 @@ function sendMessage() {
         </div>
     `;
 
-    let response = getCareerResponse(message);
-
-    chatBox.innerHTML += `
-        <div class="ai-message">
-            <strong>CareerForge:</strong>
-            <p>${response}</p>
-        </div>
-    `;
-
+    // Clear input
     input.value = "";
 
+    // Show loading message
+    const loadingMessage = document.createElement("div");
+    loadingMessage.className = "ai-message";
+    loadingMessage.innerHTML = `
+        <strong>CareerForge:</strong>
+        <p>Thinking... 🤔</p>
+    `;
+
+    chatBox.appendChild(loadingMessage);
+
+    try {
+        const response = await fetch("http://localhost:5000/coach", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: message
+            })
+        });
+
+        const data = await response.json();
+
+        // Remove loading message
+        loadingMessage.remove();
+
+        // Show AI response
+        chatBox.innerHTML += `
+            <div class="ai-message">
+                <strong>CareerForge:</strong>
+                <p>${data.answer || data.message}</p>
+            </div>
+        `;
+
+    } catch (error) {
+
+        loadingMessage.remove();
+
+        chatBox.innerHTML += `
+            <div class="ai-message">
+                <strong>CareerForge:</strong>
+                <p>
+                    Sorry, I couldn't connect to the CareerForge server.
+                    Please make sure the server is running.
+                </p>
+            </div>
+        `;
+
+        console.error("Error:", error);
+    }
+
+    // Scroll to latest message
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 
-function getCareerResponse(message) {
+// Allow pressing Enter to send
+input.addEventListener("keydown", function(event) {
 
-    const question = message.toLowerCase();
-
-    if (question.includes("resume")) {
-        return "Focus on measurable achievements, relevant technical skills, projects, and a clean one-page format.";
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
     }
 
-    if (question.includes("interview")) {
-        return "Practice explaining your projects clearly, revise CS fundamentals, and practice common behavioral questions.";
-    }
-
-    if (question.includes("java")) {
-        return "Start with Java fundamentals, OOP, collections, exception handling, multithreading, and then move to Spring Boot.";
-    }
-
-    if (question.includes("dsa")) {
-        return "Focus on arrays, strings, hashing, linked lists, stacks, queues, trees, graphs, recursion, greedy algorithms, and dynamic programming.";
-    }
-
-    if (question.includes("ai") || question.includes("machine learning")) {
-        return "Build strong Python fundamentals first, then learn NumPy, Pandas, machine learning algorithms, model evaluation, and eventually deep learning.";
-    }
-
-    if (question.includes("career")) {
-        return "Choose a career path based on your interests and strengths, then build projects and practice the skills required for your target role.";
-    }
-
-    return "That's a great question! CareerForge will provide a personalized AI-powered answer once the AI engine is connected.";
-}
+});

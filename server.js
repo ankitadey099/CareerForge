@@ -20,6 +20,19 @@ app.post("/register", (req, res) => {
             message: "Please fill all fields"
         });
     }
+    app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({
+            message: "Please enter email and password"
+        });
+    }
+
+    res.json({
+        message: "Login successful!"
+    });
+});
 
     res.json({
         message: "Registration successful!",

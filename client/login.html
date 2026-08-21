@@ -3,27 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>CareerForge - Login</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="auth-container">
+
         <h1>CareerForge</h1>
+
         <p>Login to continue your career journey</p>
 
-        <form>
-            <input type="email" placeholder="Email" required>
+        <form id="loginForm">
 
-            <input type="password" placeholder="Password" required>
+            <!-- Email -->
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                required
+            >
 
-            <button type="submit">Login</button>
+            <!-- Password -->
+            <div class="password-container">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    id="togglePassword"
+                    class="password-toggle"
+                >
+                    Show
+                </button>
+
+            </div>
+
+            <button type="submit">
+                Login
+            </button>
+
         </form>
 
+        <p id="message"></p>
+
         <p>Don't have an account?</p>
-        <a href="register.html">Create an account</a>
+
+        <a href="register.html">
+            Create an account
+        </a>
+
     </div>
+
+
+    <script>
+
+        /* =========================
+           SHOW / HIDE PASSWORD
+        ========================= */
+
+        const password = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                togglePassword.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                togglePassword.textContent = "Show";
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- Login JavaScript -->
+    <script src="login.js"></script>
 
 </body>
 </html>

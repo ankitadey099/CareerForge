@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Applications Tracker</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background-color: #f8f9fa; }
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    /* Form & Utility Styles */
+    #new-app-form { display: none; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 15px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.9rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    .error-banner { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-top: 10px; }
+    
+    /* Buttons */
+    .btn { padding: 8px 14px; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; margin-right: 5px; }
+    .btn-primary { background-color: #0d6efd; color: white; }
+    .btn-success { background-color: #198754; color: white; }
+    .btn-secondary { background-color: #6c757d; color: white; }
+    .btn-danger { background-color: #dc3545; color: white; }
+    .btn-sm { padding: 4px 8px; font-size: 0.8rem; }
+
+    /* Table & States */
+    #apps-table { display: none; width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
+    #apps-table th, #apps-table td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+    #apps-table th { background-color: #f1f3f5; font-size: 0.85rem; text-transform: uppercase; color: #495057; }
+    #apps-empty { display: none; padding: 20px; text-align: center; color: #6c757d; }
+    #apps-loader { padding: 20px; text-align: center; color: #6c757d; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation bar rendered dynamically by renderNavbar() -->
+  <header id="navbar-container"></header>
+
+  <main class="container">
+    <h1>Job Applications</h1>
+
+    <button id="new-app-btn" class="btn btn-primary">+ Add Application</button>
+
+    <!-- Creation Form -->
+    <div id="new-app-form">
+      <h3>Add New Application</h3>
+      
+      <div class="form-group">
+        <label for="company">Company *</label>
+        <input type="text" id="company" placeholder="e.g. Acme Corp">
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role *</label>
+        <input type="text" id="role" placeholder="e.g. Software Engineer">
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status">
+          <option value="Applied">Applied</option>
+          <option value="OA/Screening">OA/Screening</option>
+          <option value="Interviewing">Interviewing</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="appliedDate">Applied Date</label>
+        <input type="date" id="appliedDate">
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" rows="3" placeholder="Referrals, recruiter contacts, tech stack..."></textarea>
+      </div>
+
+      <div id="form-error"></div>
+
+      <div style="margin-top: 15px;">
+        <button id="save-app-btn" class="btn btn-success">Save Application</button>
+        <button id="cancel-app-btn" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+
+    <!-- UI States -->
+    <div id="apps-loader">Loading applications...</div>
+    <div id="apps-empty">No applications tracked yet. Click "+ Add Application" to start.</div>
+
+    <!-- Data Table -->
+    <table id="apps-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Applied Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="apps-tbody">
+        <!-- Rows dynamically injected by JS -->
+      </tbody>
+    </table>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

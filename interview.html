@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview Practice</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background-color: #f8f9fa; color: #212529; }
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .card { background: #ffffff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #e9ecef; }
+    
+    .controls-card { display: flex; align-items: flex-end; gap: 15px; }
+    .form-group { flex: 1; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+    .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; background-color: #fff; }
+
+    /* Dynamically toggled sections */
+    #question-card, #feedback-card { display: none; }
+
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; background-color: #e9ecef; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #495057; margin-bottom: 12px; }
+    
+    .question-title { font-size: 1.15rem; font-weight: 600; margin: 0 0 16px 0; line-height: 1.4; color: #111827; }
+
+    textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; resize: vertical; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; margin-bottom: 12px; }
+    textarea:focus { outline: none; border-color: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); }
+
+    /* Buttons */
+    .btn { padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 0.95rem; }
+    .btn-primary { background-color: #0d6efd; color: white; }
+    .btn-primary:disabled { background-color: #6c757d; cursor: not-allowed; }
+
+    /* Feedback Layout */
+    .feedback-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 16px; }
+    .score-display { font-size: 1.5rem; font-weight: 700; color: #198754; }
+    
+    .hint-box { background-color: #f8f9fa; padding: 14px; border-left: 4px solid #0d6efd; border-radius: 4px; margin-top: 16px; }
+    .hint-box p { margin: 0; font-size: 0.9rem; color: #495057; line-height: 1.4; }
+
+    .error-banner { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation bar rendered dynamically by renderNavbar('interview') -->
+  <header id="navbar-container"></header>
+
+  <main class="container">
+    <h1>Interview Practice</h1>
+
+    <!-- Role Selection Controls -->
+    <div class="card controls-card">
+      <div class="form-group">
+        <label for="role-select">Select Target Role</label>
+        <select id="role-select">
+          <option value="">Loading roles...</option>
+        </select>
+      </div>
+      <button id="new-question-btn" class="btn btn-primary">Get Question</button>
+    </div>
+
+    <!-- Active Question Card -->
+    <div id="question-card" class="card">
+      <span id="question-difficulty" class="badge"></span>
+      <p id="question-text" class="question-title"></p>
+
+      <textarea id="answer-input" rows="6" placeholder="Type your answer here..."></textarea>
+      
+      <div id="answer-error"></div>
+
+      <button id="submit-answer-btn" class="btn btn-primary">Get feedback</button>
+    </div>
+
+    <!-- Feedback Evaluation Card -->
+    <div id="feedback-card" class="card">
+      <div class="feedback-header">
+        <h3 style="margin: 0;">Evaluation Feedback</h3>
+        <div id="feedback-score" class="score-display"></div>
+      </div>
+      
+      <p id="feedback-text" style="line-height: 1.5; color: #333; margin: 0;"></p>
+
+      <div class="hint-box">
+        <p id="feedback-hint"></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="interview.js"></script>
+</body>
+</html>

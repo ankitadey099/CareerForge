@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background-color: #f8f9fa; color: #212529; }
+    .container { max-width: 700px; margin: 0 auto; }
+
+    .profile-card { background: #ffffff; padding: 28px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e9ecef; }
+    .profile-card h1 { margin-top: 0; margin-bottom: 20px; font-size: 1.75rem; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; box-sizing: border-box; font-family: inherit; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #0d6efd; box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15); }
+    
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 0.95rem; }
+    .btn-primary { background-color: #0d6efd; color: white; }
+    .btn-primary:disabled { background-color: #6c757d; cursor: not-allowed; }
+
+    /* Banners */
+    .success-banner { background-color: #d1e7dd; color: #0f5132; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 0.9rem; border: 1px solid #badbcc; }
+    .error-banner { background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 0.9rem; border: 1px solid #f5c6cb; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation bar rendered dynamically by renderNavbar('profile') -->
+  <header id="navbar-container"></header>
+
+  <main class="container">
+    <div class="profile-card">
+      <h1>Edit Profile</h1>
+
+      <div id="status-box"></div>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="headline">Professional Headline</label>
+          <input type="text" id="headline" placeholder="e.g. Full Stack Developer | CS Senior">
+        </div>
+
+        <div class="form-group">
+          <label for="targetRole">Target Role</label>
+          <input type="text" id="targetRole" placeholder="e.g. Software Engineer, Backend Developer">
+        </div>
+
+        <div class="form-group">
+          <label for="skills">Skills</label>
+          <input type="text" id="skills" placeholder="e.g. JavaScript, Python, React, PostgreSQL">
+        </div>
+
+        <div class="form-group">
+          <label for="education">Education</label>
+          <input type="text" id="education" placeholder="e.g. B.S. in Computer Science, University of California">
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Bio</label>
+          <textarea id="bio" rows="4" placeholder="Brief summary of your experience, interests, and career goals..."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary">Save profile</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="profile.js"></script>
+</body>
+</html>
